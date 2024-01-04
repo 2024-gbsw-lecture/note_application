@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:note_application/service/database_client.dart';
 
 class AddPage extends StatelessWidget {
-  const AddPage({super.key});
+  String _title = '', _content = '';
+
+  AddPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,24 +14,32 @@ class AddPage extends StatelessWidget {
         title: const Text('추가'),
         actions: [
           TextButton(
-            onPressed: () => DatabaseClient.instance.insert(),
+            onPressed: () => DatabaseClient.instance
+                .insert(
+                  title: _title,
+                  content: _content,
+                  date: Get.arguments as String,
+                )
+                .then((value) => Get.back()),
             child: const Text('추가'),
           ),
         ],
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(10.0),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
             TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: '제목',
               ),
+              onChanged: (value) => _title = value,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
               child: TextField(
-                decoration: InputDecoration(
+                onChanged: (value) => _content = value,
+                decoration: const InputDecoration(
                   hintText: '내용',
                   border: OutlineInputBorder(),
                 ),

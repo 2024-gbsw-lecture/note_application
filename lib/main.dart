@@ -25,7 +25,7 @@ class MainApp extends StatelessWidget {
         ),
         GetPage(
           name: '/add',
-          page: () => const AddPage(),
+          page: () => AddPage(),
         ),
         GetPage(
           name: '/view',

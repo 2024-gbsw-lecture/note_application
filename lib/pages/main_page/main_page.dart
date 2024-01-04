@@ -4,9 +4,14 @@ import 'package:note_application/pages/add_page/add_page.dart';
 import 'package:note_application/pages/note_page/note_page.dart';
 import 'package:note_application/service/database_client.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,9 +38,15 @@ class MainPage extends StatelessWidget {
                     itemBuilder: (context, index) => Card(
                       child: ListTile(
                         title: Text('${data[index]['title']}'),
-                        trailing: const IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: null,
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () => DatabaseClient.instance
+                              .deleteNote(
+                            data[index]['id'],
+                          )
+                              .then((value) {
+                            setState(() {});
+                          }),
                         ),
                         onTap: () => Get.toNamed('/view'),
                       ),
@@ -50,7 +61,12 @@ class MainPage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.toNamed('/add'),
+        onPressed: () => Get.toNamed(
+          '/add',
+          arguments: '2024-01-04',
+        )?.then((value) {
+          setState(() {});
+        }),
         child: const Icon(Icons.add),
       ),
     );
