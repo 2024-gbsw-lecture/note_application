@@ -34,4 +34,12 @@ class DatabaseClient {
       'date': '2024-01-04',
     });
   }
+
+  Future<List<Map<String, dynamic>>> getDatasWithDate(String date) {
+    return _database.query(
+      'note',
+      where: 'date = ?',
+      whereArgs: [date],
+    );
+  }
 }
