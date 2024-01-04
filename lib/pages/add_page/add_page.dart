@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_application/service/database_client.dart';
 
 class AddPage extends StatelessWidget {
   const AddPage({super.key});
@@ -8,10 +9,10 @@ class AddPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('추가'),
-        actions: const [
+        actions: [
           TextButton(
-            onPressed: null,
-            child: Text('추가'),
+            onPressed: () => DatabaseClient.instance.insert(),
+            child: const Text('추가'),
           ),
         ],
       ),
