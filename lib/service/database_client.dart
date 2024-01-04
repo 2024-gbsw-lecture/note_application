@@ -26,4 +26,12 @@ class DatabaseClient {
       },
     );
   }
+
+  Future<void> insert() {
+    return _database.insert('note', {
+      'title': 'test',
+      'content': 'content',
+      'date': '2024-01-04',
+    });
+  }
 }
