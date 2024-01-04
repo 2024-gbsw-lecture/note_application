@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:note_application/pages/add_page/add_page.dart';
 import 'package:note_application/pages/main_page/main_page.dart';
+import 'package:note_application/pages/note_page/note_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,8 +13,22 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      home: MainPage(),
+    return GetMaterialApp(
+      getPages: [
+        GetPage(
+          name: '/',
+          page: () => const MainPage(),
+        ),
+        GetPage(
+          name: '/add',
+          page: () => const AddPage(),
+        ),
+        GetPage(
+          name: '/view',
+          page: () => const NotePage(),
+        ),
+      ],
+      initialRoute: '/',
     );
   }
 }
