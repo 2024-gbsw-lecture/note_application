@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:note_application/pages/add_page/add_page.dart';
 import 'package:note_application/pages/note_page/note_page.dart';
 
@@ -30,12 +31,7 @@ class MainPage extends StatelessWidget {
                       icon: Icon(Icons.delete),
                       onPressed: null,
                     ),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const NotePage(),
-                      ),
-                    ),
+                    onTap: () => Get.toNamed('/view'),
                   ),
                 ),
                 itemCount: 100,
@@ -45,12 +41,7 @@ class MainPage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const AddPage(),
-          ),
-        ),
+        onPressed: () => Get.toNamed('/add'),
         child: const Icon(Icons.add),
       ),
     );
