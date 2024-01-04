@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:note_application/pages/add_page/add_page.dart';
 import 'package:note_application/pages/note_page/note_page.dart';
+import 'package:note_application/service/database_client.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -23,18 +24,26 @@ class MainPage extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: ListView.builder(
-                itemBuilder: (context, index) => Card(
-                  child: ListTile(
-                    title: Text('$index'),
-                    trailing: const IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: null,
+              child: FutureBuilder(
+                builder: (context, snapshot) {
+                  List<Map<String, dynamic>> data =
+                      snapshot.hasData ? snapshot.data! : [];
+
+                  return ListView.builder(
+                    itemBuilder: (context, index) => Card(
+                      child: ListTile(
+                        title: Text('${data[index]['title']}'),
+                        trailing: const IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: null,
+                        ),
+                        onTap: () => Get.toNamed('/view'),
+                      ),
                     ),
-                    onTap: () => Get.toNamed('/view'),
-                  ),
-                ),
-                itemCount: 100,
+                    itemCount: data.length,
+                  );
+                },
+                future: DatabaseClient.instance.getDatasWithDate('2024-01-04'),
               ),
             ),
           ),
